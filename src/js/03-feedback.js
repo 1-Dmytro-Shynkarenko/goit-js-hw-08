@@ -3,7 +3,7 @@ import throttle from 'lodash.throttle';
 
 // Створення змінних для форми і ключа локального сховища
 const formData = {};
-const FORM_LOCAL_SROREGE_KEY = 'feedback-form-state';
+const FORM_LOCAL_STORAGE_KEY = 'feedback-form-state';
 
 // Ініціалізація форми
 const formEl = document.querySelector('form');
@@ -15,14 +15,14 @@ formEl.addEventListener('submit', formClearAfterSubmit);
 // Функція для запису даних в localStorage з formData
 function formDataInput(event) {
     formData[event.target.name] = event.target.value;
-    localStorage.setItem(FORM_LOCAL_SROREGE_KEY, JSON.stringify(formData));
+    localStorage.setItem(FORM_LOCAL_STORAGE_KEY, JSON.stringify(formData));
 };
 
 // Перевірка стану сховища, і якщо там є збережені дані, заповнюються ними поля форми. В іншому випадку поля - порожні.
 formFillCheck();
 
 function formFillCheck() {
-    const dataInForm = localStorage.getItem(FORM_LOCAL_SROREGE_KEY);
+    const dataInForm = localStorage.getItem(FORM_LOCAL_STORAGE_KEY);
     if (dataInForm) {
         const parceDataInForm = JSON.parse(dataInForm);
         for (const property in parceDataInForm) {
@@ -40,5 +40,5 @@ function formClearAfterSubmit(event) {
     formData.email = formEl.elements.email.value;
     formData.message = formEl.elements.message.value;
     formEl.reset();
-    localStorage.removeItem(FORM_LOCAL_SROREGE_KEY);
+    localStorage.removeItem(FORM_LOCAL_STORAGE_KEY);
 };
